@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <link href="public/profile.css" rel="stylesheet">
+    </head>
+    <body>
+
+      <header>
+        <div class="logo"></div>
+        <div id="user-info"></div>
+      </header>
+
+      <h1>Edit Profile</h1>
+
+      <div id="saved" class="hidden">The changes were saved.</div>
+
+      <div id="editProfileContainer"></div>
+
+      <script src="public/dist/js/auth0-editprofile-widget.js"></script>
+
+      <script type="text/javascript">
+
+      var editProfileWidget = new Auth0EditProfileWidget('{{domain}}', 'editProfileContainer', [
+          { label: "Name", type:"text", attribute:"name",
+            validation: function(name){
+                return (name.length > 10 ? 'The name is too long' : null);
+            }
+          },
+
+          { label: "Lastname", type:"text", attribute:"lastname" },
+
+          { label: "BirthDay", type:"date", attribute:"birthday" },
+
+          { label: "Type", type:"select", attribute:"account_type",
+            options:[
+              { value: "type_1", text:"Type 1"},
+              { value: "type_2", text:"Type 2"},
+              { value: "type_3", text:"Type 3"}
+            ]
+          }
+      ]);
+
+      editProfileWidget.init('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ0QXRrdXdJekg1RGVzN2RoSmcwdmpoRzhHQnUzT05tTiIsInNjb3BlcyI6eyJ1c2Vyc19hcHBfbWV0YWRhdGEiOnsiYWN0aW9ucyI6WyJ1cGRhdGUiXX0sInVzZXJzIjp7ImFjdGlvbnMiOlsicmVhZCIsInVwZGF0ZSJdfX0sImlhdCI6MTQ1ODUwMjA0MSwianRpIjoiZjUxMmNlOWUyMTEwOTg2MTkzY2UyZTNhNTRjMjdlNDIifQ.BNvtuz5dvqlqPU8CeofJrDGp6CoaoRh9yu1MGfFItSU');
+
+      </script>
+    </body>
+</html>

@@ -40,6 +40,11 @@ def home():
 def dashboard():
     return render_template('dashboard.html', user=session['profile'])
 
+@app.route("/profile")
+@requires_auth
+def profile():
+    return render_template('profile.html', user=session['profile'], client_id=env['AUTH0_CLIENT_ID'],domain=env["AUTH0_DOMAIN"])
+
 @app.route('/public/<path:filename>')
 def static_files(filename):
     return send_from_directory('./public', filename)
