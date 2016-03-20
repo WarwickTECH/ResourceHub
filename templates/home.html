@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+
+        <script type="text/javascript" src="//use.typekit.net/iws6ohy.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- font awesome from BootstrapCDN -->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script>
+        var AUTH0_CLIENT_ID = '{{env.AUTH0_CLIENT_ID}}';
+        var AUTH0_DOMAIN = '{{env.AUTH0_DOMAIN}}';
+        var AUTH0_CALLBACK_URL = '{{env.AUTH0_CALLBACK_URL if env.AUTH0_CALLBACK_URL else "http://localhost:3000/callback" }}';
+        </script>
+        <script src="/public/app.js"> </script>
+        <link href="/public/app.css" rel="stylesheet">
+
+        <style>
+        html, body { padding: 0; margin: 0; }
+
+        .table {
+          display: table;
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+          background-color: #e8ebef;
+        }
+
+        .cell {
+          display: table-cell;
+          vertical-align: middle;
+        }
+
+        .content {
+          padding: 25px 0px 25px 0px;
+          margin-left: auto;
+          margin-right: auto;
+          width: 280px; /* login widget width */
+        }
+
+        #a0-lock.a0-theme-default .a0-panel button.a0-primary,
+        #a0-widget .a0-panel button.a0-primary {
+        background: #005CAC !important;
+        }
+
+        }
+      </style>
+
+    </head>
+
+    <body class="home">
+        <div class="container">
+            <div class="login-page clearfix">
+              <div class="login-box auth0-box before">
+                <img style="width: 300px; height: 300px" src="http://warwick.tech/img/WarwickHACK.png" />
+                <h2>WarwickTECH</h2>
+                <p>Resource Hub</p>
+                <button class="btn" onclick="window.signin();">Login</button>
+              </div>
+            </div>
+        </div>
+    </body>
+    <script src="https://cdn.auth0.com/js/lock-8.2.min.js"></script>
+    <script type="text/javascript">
+
+      var lock = new Auth0Lock('{{env.AUTH0_CLIENT_ID}}', '{{env.AUTH0_DOMAIN}}');
+
+      function signin() {
+        lock.show({
+            callbackURL: '{{env.AUTH0_CALLBACK_URL}}'
+          , responseType: 'code'
+          , icon: 'http://warwick.tech/img/WarwickHACK.png'
+          , closable : 'True'
+          , authParams: {
+            scope: 'openid profile'
+          }
+        });
+      }
+    </script>
+</html>
